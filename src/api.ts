@@ -2,12 +2,17 @@ import * as SQS from 'aws-sdk/clients/sqs';
 
 const sqs = new SQS();
 
-type MessageStructure = {
+type CreateMessageStructure = {
 	id: string;
-	phoneNumber: string;
+	phoneNumber: number;
+	email: string;
 };
 
-export const create = ({ body }, _, callback) => {
+export const create = (
+	{ body }: { body: CreateMessageStructure },
+	_,
+	callback
+) => {
 	console.log('I got:');
 	console.log(body);
 

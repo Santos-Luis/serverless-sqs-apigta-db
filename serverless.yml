@@ -15,11 +15,11 @@ constructs:
   anonymizer:
     type: queue
     worker:
-      handler: processor.anonymizer
+      handler: src/processor.anonymizer
 
 functions:
   create:
-    handler: api.create
+    handler: src/api.create
     events:
       - http:
           method: post
