@@ -1,0 +1,14 @@
+{
+  "name": "service-processor-serverless",
+  "version": "1.0.0",
+  "description": "Serverless Framework Node SQS Producer-Consumer on AWS",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "serverless-lift": "^1.1.2"
+  },
+  "devDependencies": {
+    "serverless-bundle": "^4.3.1"
+  }
+}

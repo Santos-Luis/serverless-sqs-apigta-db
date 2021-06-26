@@ -1,0 +1,32 @@
+service: service-processor-serverless
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: '20201221'
+  stage: dev
+  region: us-east-1
+  environment:
+    API_GT_ID: !Sub ${ApiGatewayRestApi}
+    SQS_URL: ${construct:anonymizer.queueUrl}
+
+constructs:
+  anonymizer:
+    type: queue
+    worker:
+      handler: processor.anonymizer
+
+functions:
+  create:
+    handler: api.create
+    events:
+      - http:
+          method: post
+          path: create
+    environment:
+      QUEUE_URL: ${construct:anonymizer.queueUrl}
+
+plugins:
+  - serverless-lift
+  - serverless-bundle
