@@ -5,7 +5,7 @@ type MessageStructure = {
 	phoneNumber: number;
 };
 
-const URL = `https://${process.env.API_GT_ID}.execute-api.us-east-1.amazonaws.com/dev/create`;
+const URL = `https://${process.env.API_GT_ID}.execute-api.us-east-1.amazonaws.com/dev/update`;
 
 export const anonymizer = async ({ Records: records }) => {
 	const [{ body }] = records;
@@ -20,7 +20,7 @@ export const anonymizer = async ({ Records: records }) => {
 
     console.log(sentBody);
 
-    // await axios.post(URL, sentBody).then(res => console.log(res));
+    await axios.put(URL, sentBody).then(res => console.log(res));
 };
 
 const getPhoneNumberAnonymized = (phoneNumber: number): string => {

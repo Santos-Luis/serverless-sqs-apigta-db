@@ -35,6 +35,12 @@ functions:
           path: create
     environment:
       QUEUE_URL: ${construct:anonymizer.queueUrl}
+  update:
+    handler: src/api.update
+    events:
+      - http:
+          method: put
+          path: update
 
 resources:
   Resources:
