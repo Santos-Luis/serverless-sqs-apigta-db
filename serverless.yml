@@ -12,6 +12,14 @@ provider:
     SQS_URL: ${construct:anonymizer.queueUrl}
     USERS_TABLE: ${self:provider.stage}-user
 
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: '*'
+
 constructs:
   anonymizer:
     type: queue

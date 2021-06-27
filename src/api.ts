@@ -1,4 +1,5 @@
 import { SQS } from 'aws-sdk';
+import { addNewUser } from './repository';
 
 const sqs = new SQS();
 
@@ -8,15 +9,24 @@ type CreateMessageStructure = {
 	email: string;
 };
 
-export const create = (
-	{ body }: { body: CreateMessageStructure },
-	_,
-	callback
+export const create = async (
+	{ body }: { body: string },
+	_: undefined,
+	callback,
 ) => {
-	console.log('I got:');
-	console.log(body);
+	const parsedBody: CreateMessageStructure = JSON.parse(body);
+	const { id, phoneNumber, email } = parsedBody;
+	
+	await addNewUser({ id, email });
 
-	return callback(null, { statusCode: 200, body: 'success' });
+	await sqs.sendMessage({
+		QueueUrl: process.env.QUEUE_URL,
+        MessageBody: JSON.stringify(
+			{ id, phoneNumber }
+		),
+	}).promise();
+
+	return callback(null, { statusCode: 200, body: `User ${id} added with sucess` });
 };
 
 // export const update = () => {};

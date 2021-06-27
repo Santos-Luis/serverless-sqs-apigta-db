@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
+    "serverless-dynamodb-local": "^0.2.39",
     "serverless-lift": "^1.1.2"
   },
   "devDependencies": {

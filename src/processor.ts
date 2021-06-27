@@ -18,7 +18,9 @@ export const anonymizer = async ({ Records: records }) => {
         phoneNumber: getPhoneNumberAnonymized(phoneNumber),
     };
 
-    await axios.post(URL, sentBody).then(res => console.log(res));
+    console.log(sentBody);
+
+    // await axios.post(URL, sentBody).then(res => console.log(res));
 };
 
 const getPhoneNumberAnonymized = (phoneNumber: number): string => {
