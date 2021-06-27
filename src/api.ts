@@ -3,15 +3,10 @@ import { addNewUser, updateUser } from './repository';
 
 const sqs = new SQS();
 
-type CreateMessageStructure = {
+export type UserMessageStructure = {
 	id: string;
 	phoneNumber: number;
 	email: string;
-};
-
-type UpdateMessageStructure = {
-	id: string;
-	phoneNumber: number;
 };
 
 export const create = async (
@@ -19,19 +14,17 @@ export const create = async (
 	_: undefined,
 	callback,
 ) => {
-	const parsedBody: CreateMessageStructure = JSON.parse(body);
-	const { id, phoneNumber, email } = parsedBody;
+	const parsedBody: UserMessageStructure = JSON.parse(body);
+	const { id, email } = parsedBody;
 	
 	await addNewUser({ id, email });
 
 	await sqs.sendMessage({
 		QueueUrl: process.env.QUEUE_URL,
-        MessageBody: JSON.stringify(
-			{ id, phoneNumber }
-		),
+        MessageBody: body,
 	}).promise();
 
-	return callback(null, { statusCode: 201, body: `User ${id} added with sucess` });
+	return callback(null, { statusCode: 201, body: `User ${parsedBody.id} added with sucess` });
 };
 
 export const update = async (
@@ -39,10 +32,9 @@ export const update = async (
 	_: undefined,
 	callback,
 ) => {
-	const parsedBody: UpdateMessageStructure = JSON.parse(body);
-	const { id, phoneNumber } = parsedBody;
+	const parsedBody: UserMessageStructure = JSON.parse(body);
 	
-	await updateUser({ id, phoneNumber });
+	await updateUser(parsedBody);
 
-	return callback(null, { statusCode: 200, body: `User ${id} updated with sucess` });
+	return callback(null, { statusCode: 200, body: `User ${parsedBody.id} updated with sucess` });
 };
