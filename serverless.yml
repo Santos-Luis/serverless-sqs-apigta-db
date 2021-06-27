@@ -10,6 +10,7 @@ provider:
   environment:
     API_GT_ID: !Sub ${ApiGatewayRestApi}
     SQS_URL: ${construct:anonymizer.queueUrl}
+    USERS_TABLE: ${self:provider.stage}-user
 
 constructs:
   anonymizer:
@@ -26,6 +27,25 @@ functions:
           path: create
     environment:
       QUEUE_URL: ${construct:anonymizer.queueUrl}
+
+resources:
+  Resources:
+    UserDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: "id"
+            AttributeType: "S"
+        KeySchema:
+          -
+            AttributeName: "id"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.USERS_TABLE}
 
 plugins:
   - serverless-lift
