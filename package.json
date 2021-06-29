@@ -5,10 +5,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
-    "serverless-lift": "^1.1.2"
+    "axios": "0.21.1",
+    "serverless-lift": "1.1.2"
   },
   "devDependencies": {
-    "serverless-bundle": "^4.3.1"
+    "serverless-bundle": "4.3.1"
   }
 }
