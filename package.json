@@ -2,7 +2,7 @@
   "name": "serverless-sqs-apig-db",
   "version": "1.0.0",
   "description": "Serverless Framework Node SQS Producer-Consumer on AWS",
-  "author": "",
+  "author": "Santos-Luis",
   "license": "MIT",
   "dependencies": {
     "axios": "0.21.1",
