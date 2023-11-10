@@ -5,7 +5,7 @@
   "author": "Santos-Luis",
   "license": "MIT",
   "dependencies": {
-    "axios": "0.21.1",
+    "axios": "1.6.0",
     "serverless-lift": "1.1.2"
   },
   "devDependencies": {
